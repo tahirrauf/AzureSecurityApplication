@@ -25,7 +25,8 @@ namespace MyAddressBookPlus.Controllers
                 Name = c.Name,
                 Phone = c.Phone,
                 Email = c.Email,
-                Address = c.Address
+                Address = c.Address,
+                Ssn = c.Ssn
             });
 
             return View(viewModel);
@@ -74,7 +75,8 @@ namespace MyAddressBookPlus.Controllers
                 Address = model.Address,
                 Email = model.Email,
                 Phone = model.Phone,
-                PictureName = pictureFilename
+                PictureName = pictureFilename,
+                Ssn = model.Ssn
             });
 
             return RedirectToAction("index");
@@ -99,6 +101,7 @@ namespace MyAddressBookPlus.Controllers
                 Phone = contact.Phone,
                 Email = contact.Email,
                 Address = contact.Address,
+                Ssn = contact.Ssn,
                 PictureName = string.IsNullOrEmpty(contact.PictureName) ? null : $"{photoContainerUrl}{contact.PictureName}"
             });
         }
@@ -123,6 +126,7 @@ namespace MyAddressBookPlus.Controllers
                     Phone = "Null",
                     Email = "Null",
                     Address = "Null",
+                    Ssn = contact.Ssn,
                     PictureName = null
                 });
             }
@@ -136,6 +140,7 @@ namespace MyAddressBookPlus.Controllers
                 Phone = contact.Phone,
                 Email = contact.Email,
                 Address = contact.Address,
+                Ssn = contact.Ssn,
                 PictureName = string.IsNullOrEmpty(contact.PictureName) ? null : $"{photoContainerUrl}{contact.PictureName}"
             });
         }

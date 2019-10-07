@@ -29,7 +29,17 @@ namespace MyAddressBookPlus.Data
             var sql = "INSERT INTO dbo.[Contact] ([Name] ,[Email] ,[Phone] ,[Address] ,[PictureName]) VALUES" +
                 "(@Name, @Email, @Phone, @Address, @Picturename); " +
                 "SELECT CAST(SCOPE_IDENTITY() AS INT)";
-            var id = this.db.Query<int>(sql, contact).Single();
+
+            //Replacing the dynamic parameters so that ADO.NET can replace the encrypted value
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@Name", contact.Name, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Email", contact.Email, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Phone", contact.Phone, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Address", contact.Address, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Picturename", contact.PictureName, DbType.String, ParameterDirection.Input);
+            parameters.Add("@Ssn", contact.Ssn, DbType.String, ParameterDirection.Input);
+
+            var id = this.db.Query<int>(sql, parameters).Single();
             contact.Id = id;
             return id;
         }

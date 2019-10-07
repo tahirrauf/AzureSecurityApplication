@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.Azure;
 using Microsoft.Azure.KeyVault;
+using MyAddressBook_.EncryptionHelpers;
 using MyAddressBook_.Services;
 
 namespace MyAddressBookPlus
@@ -25,6 +26,8 @@ namespace MyAddressBookPlus
                 var sec = keyValut.GetSecretAsync(WebConfigurationManager.AppSettings["RedisKeyVaultSecret"]).Result;
 
                 KeyVaultService.CacheConnection = sec.Value;
+
+                AlwaysEncryptedInitializer.InitializeAzureKeyVaultProvider();
             }
             catch(Exception ex)
             {
